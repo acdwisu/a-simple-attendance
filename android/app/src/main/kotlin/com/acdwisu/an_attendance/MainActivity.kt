@@ -1,4 +1,4 @@
-package com.example.an_attendance
+package com.acdwisu.an_attendance
 
 import io.flutter.embedding.android.FlutterActivity
 
