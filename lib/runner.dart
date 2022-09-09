@@ -6,12 +6,14 @@ void runner(bool production) async {
 
   runApp(
     production? MyApp() : DevicePreview(
-      builder: (context) => MyApp(),
+      builder: (context) => const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

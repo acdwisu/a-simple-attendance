@@ -2,14 +2,14 @@ import 'package:sqflite_sqlcipher/sqflite.dart';
 
 import '../../models/master-attendance-location.dart';
 
-class MasterDbHelper {
-  static MasterDbHelper? _databaseHelper;
+class MasterSqfliteHelper {
+  static MasterSqfliteHelper? _databaseHelper;
 
-  MasterDbHelper._instance() {
+  MasterSqfliteHelper._instance() {
     _databaseHelper = this;
   }
 
-  factory MasterDbHelper() => _databaseHelper ?? MasterDbHelper._instance();
+  factory MasterSqfliteHelper() => _databaseHelper ?? MasterSqfliteHelper._instance();
 
   static Database? _database;
 
