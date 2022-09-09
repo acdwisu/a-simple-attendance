@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.an_attendance">
+    package="com.acdwisu.an_attendance">
    <application
-        android:label="an_attendance"
+        android:label="Simple Attendance-acdwisu"
         android:name="${applicationName}"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
