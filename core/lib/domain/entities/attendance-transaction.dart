@@ -1,4 +1,4 @@
-import 'package:core/domain/entities/master-map.dart';
+import 'package:core/domain/entities/master-attendance-location.dart';
 import 'package:equatable/equatable.dart';
 
 class AttendanceTransaction extends Equatable {

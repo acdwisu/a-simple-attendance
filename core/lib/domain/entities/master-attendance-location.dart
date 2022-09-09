@@ -6,6 +6,7 @@ class MasterAttendanceLocation extends Equatable {
   final String label;
   final double toleranceRadiusMeter;
   final int id;
+  final bool active;
 
   const MasterAttendanceLocation({
     required this.lat,
@@ -13,6 +14,7 @@ class MasterAttendanceLocation extends Equatable {
     required this.label,
     required this.toleranceRadiusMeter,
     required this.id,
+    required this.active,
   });
 
   @override
