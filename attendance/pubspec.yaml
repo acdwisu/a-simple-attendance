@@ -1,29 +1,26 @@
-name: core
+name: attendance
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: ">=2.17.6 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  get_it: ^7.2.0
-  sqflite_sqlcipher: ^2.1.0
-  equatable: ^2.0.3
-  geolocator: ^9.0.1
-  permission_handler: 9.2.0
-  path_provider: ^2.0.10
-  dartz: ^0.10.1
-  sqflite: ^2.0.3+1
+  core:
+    path: ../core
+  master_manage:
+    path: ../master_manage
+
   latlong2: ^0.8.1
   flutter_map: ^2.2.0
-  location_picker_flutter_map: ^1.0.3
   flutter_bloc: ^8.1.1
-  rxdart: ^0.27.5
+  flutter_map_location_marker: ^4.1.4
+  geolocator: ^9.0.1
 
 dev_dependencies:
   flutter_test:

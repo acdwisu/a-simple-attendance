@@ -43,7 +43,7 @@ class MasterRepositoyImpl extends MasterRepository {
       }
 
       return Left(CacheFailure(
-        message: 'failed'
+        message: 'No Data'
       ));
     } catch(e, trace) {
       log('error', error: e, stackTrace: trace);

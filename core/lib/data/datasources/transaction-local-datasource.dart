@@ -6,4 +6,5 @@ abstract class TransactionLocalDatasource {
   Future<bool> isHasAbsen(DateTime tanggal, TipeAbsen tipeAbsen);
   Future<bool> saveAbsen(ModelAttendanceTransaction model);
   Future<bool> clearDataAbsen();
+  Future<TipeAbsen> determineTipeAbsen(DateTime tanggal);
 }

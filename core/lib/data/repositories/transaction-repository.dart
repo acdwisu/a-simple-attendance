@@ -46,7 +46,7 @@ class TransactionRepositoryImpl extends TransactionRepository {
       }
 
       return Left(CacheFailure(
-        message: 'failed'
+        message: 'No Data'
       ));
     } catch(e, trace) {
       log('error', error: e, stackTrace: trace);
@@ -58,6 +58,23 @@ class TransactionRepositoryImpl extends TransactionRepository {
   @override
   Future<Either<Failure, String>> saveAttendance(AttendanceTransaction data) async {
     try {
+      if(data.distToAttendanceLocation > data.attendanceLocation.toleranceRadiusMeter) {
+        return Left(
+          CommonFailure(
+            'Terlalu jauh dari pinned location terdekat'
+          )
+        );
+      }
+
+      final hasAbsen = await transactionLocalDatasource.isHasAbsen(
+        data.tanggal, data.tipeAbsen);
+
+      if(hasAbsen) {
+        return Left(
+          CommonFailure('Sudah Absen ${data.tipeAbsen.name} hari ini')
+        );
+      }
+
       final result = await transactionLocalDatasource.saveAbsen(
         ModelAttendanceTransaction(
           jam: data.jam,
@@ -93,6 +110,20 @@ class TransactionRepositoryImpl extends TransactionRepository {
       return Left(CommonFailure(
         e.toString()
       ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TipeAbsen>> determineTipeAbsen(DateTime tanggal) async {
+    try {
+      final result = await transactionLocalDatasource.determineTipeAbsen(tanggal);
+
+      return Right(result);
+
+    } catch(e, trace) {
+      log('error', error: e, stackTrace: trace);
+
+      return Left(CommonFailure(e.toString()));
     }
   }
 

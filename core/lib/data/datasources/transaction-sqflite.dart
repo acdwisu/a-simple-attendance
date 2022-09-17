@@ -36,4 +36,9 @@ class TransactionSqflite extends TransactionLocalDatasource {
     return transactionDbHelper.saveNewAttendance(model);
   }
 
+  @override
+  Future<TipeAbsen> determineTipeAbsen(DateTime tanggal) {
+    return transactionDbHelper.determineTipeAbsen(tanggal);
+  }
+
 }

@@ -61,7 +61,8 @@ class TransactionSqfliteHelper {
           $_columnAtTanggal TEXT,
           $_columnAtJam TEXT,
           $_columnAtIdMasterAttendanceLoc INTEGER,
-          $_columnAtMediaPath TEXT
+          $_columnAtMediaPath TEXT,
+          $_columnAtTipeAbsen INTEGER
         );
       '''),
     ]);
@@ -125,6 +126,26 @@ class TransactionSqfliteHelper {
     return local.isNotEmpty;
   }
 
+  Future<TipeAbsen> determineTipeAbsen(DateTime tanggal) async {
+    final db = await __database;
+
+    final local = await db!.query(
+        _tblAttendanceTransaction,
+        where: "$_columnAtTanggal = ?",
+        whereArgs: [
+          _tanggalFormatter(tanggal),
+        ]
+    );
+
+    if(local.isEmpty) {
+      return TipeAbsen.Masuk;
+    } else if(local.length==1) {
+      return TipeAbsen.Pulang;
+    }
+
+    return TipeAbsen.Pulang;
+  }
+
   Future<bool> saveNewAttendance(ModelAttendanceTransaction model) async {
     final db = (await __database)!;
 
@@ -134,7 +155,7 @@ class TransactionSqfliteHelper {
 
     final int result = await db.insert(
       _tblAttendanceTransaction,
-      _toJsonAt(model),
+      _toJsonAt(model)..remove(_columnAtId),
     );
 
     return result>0;
@@ -151,7 +172,7 @@ class TransactionSqfliteHelper {
     mediaPath: json[_columnAtMediaPath],
     description: json[_columnAtDescription],
     tanggal: DateTime.parse(json[_columnAtTanggal]),
-    distToAttendanceLocation: json[_columnAtDistanceToAttendanceLoc],
+    distToAttendanceLocation: json[_columnAtDistanceToAttendanceLoc] * 1.0,
     attendanceLocation: master[json[_columnAtIdMasterAttendanceLoc]]
         ?? ModelMasterAttendanceLocation.empty(),
     //bughole
@@ -174,5 +195,5 @@ class TransactionSqfliteHelper {
   //endregion
 
   String _tanggalFormatter(DateTime dateTime)
-    => "${dateTime.year}${dateTime.month}${dateTime.day}";
+    => "${dateTime.year}${format2DigitNumber(dateTime.month)}${format2DigitNumber(dateTime.day)}";
 }

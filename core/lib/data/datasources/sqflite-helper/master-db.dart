@@ -50,7 +50,7 @@ class MasterSqfliteHelper {
           $_columnMalLat REAL,
           $_columnMalLon REAL,
           $_columnMalLabel TEXT,
-          $_columnMalToleranceRadiusMeter INTEGER,
+          $_columnMalToleranceRadiusMeter REAL,
           $_columnMalActive INTEGER
         );
       '''),
@@ -102,7 +102,7 @@ class MasterSqfliteHelper {
     if(model.id == -1 || model.id == 0) {
       result = await db.insert(
         _tblMasterAttendanceLocation,
-        _toJsonMal(model),
+        _toJsonMal(model)..remove(_columnMalId),
       );
     } else {
       result = await db.update(
